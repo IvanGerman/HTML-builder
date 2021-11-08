@@ -20,13 +20,15 @@ async function bundleCssFiles() {
 
 function appendToBundle(cssFilesArray = [], writableStream) {
 
-  if (!cssFilesArray.length) {
+  let nextCssFile = cssFilesArray.shift();
+
+  if (nextCssFile === undefined) {
 
     return writableStream.end();
 
   };
 
-  let nextCssFile = cssFilesArray.shift();
+
   const cssFilePath = path.join(cssFilesDirectory, nextCssFile);
 
   const readableStream = fs.createReadStream(cssFilePath, 'utf8');
